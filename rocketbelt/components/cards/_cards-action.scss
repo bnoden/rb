@@ -1,0 +1,35 @@
+.card {
+  &.card-action,
+  &.card-image,
+  &.card-panel {
+    padding: 0;
+  }
+}
+
+.card-image-thumbnail {
+  display: flex;
+
+  .card-image_image {
+    max-width: 33%;
+    height: 100%;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+}
+
+.card-content {
+  padding: 0.5rem;
+}
+
+.card-title {
+  text-transform: uppercase;
+  font-size: ms(1);
+}
+
+.card-actions {
+  padding: 0.5rem;
+  border-top: 1px solid rgba(color(gray, plus2), 0.4);
+  text-align: right;
+}

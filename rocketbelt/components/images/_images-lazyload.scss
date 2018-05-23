@@ -1,0 +1,52 @@
+%skeleton-image {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(
+    -90deg,
+    color(gray, plus2) 0%,
+    color(white) 50%,
+    color(gray, plus2) 100%
+  );
+
+  background-size: 400% 400%;
+  animation: pulse 2s ease-in-out infinite;
+
+  @keyframes pulse {
+    0% {
+      background-position: 0% 0%;
+    }
+
+    100% {
+      background-position: -135% 0%;
+    }
+  }
+}
+
+.lazyload-loading {
+  @extend %skeleton-image;
+
+  padding-bottom: 100%;
+}
+
+.lazyload-wrapper {
+  @extend %skeleton-image;
+
+  & img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+
+    &.loaded {
+      opacity: 1;
+      transition: opacity 200ms ease-in-out;
+    }
+
+    &.lazyload-small {
+      opacity: 0.5;
+      transition: opacity 200ms ease-in-out;
+    }
+  }
+}

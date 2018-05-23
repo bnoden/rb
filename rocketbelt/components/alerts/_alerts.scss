@@ -1,0 +1,104 @@
+$message-families: (success, error, warning, info);
+
+%message-static-props {
+  display: flex;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid;
+  border-radius: 2px;
+  align-items: center;
+}
+
+
+%message-flash-static-props {
+  @extend %message-static-props;
+
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid;
+  border-radius: 2px;
+}
+
+
+%message-banner-static-props {
+  @extend %message-static-props;
+
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
+
+.message-banner {
+  @extend %message-banner-static-props;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+}
+
+
+.message-flash {
+  @extend %message-flash-static-props;
+}
+
+@mixin message($family) {
+  border-color: color($family, lighter);
+  background: color($family, lightest);
+  color: color($family, darkest);
+}
+
+
+@each $family in $message-families {
+  .message-#{$family} {
+    @include message($family);
+    transition: color 200ms ease-in-out;
+
+    & .message-dismissable_close {
+      color: color($family, darkest);
+      border: 0;
+      background: transparent;
+
+      &:hover {
+        color: color($family, darker);
+        transition: color 200ms ease-in-out;
+      }
+
+      &:active {
+        color: color($family, darkest);
+        transition: color 200ms ease-in-out;
+      }
+    }
+  }
+}
+
+.message-dismissable {
+
+  justify-content: space-between;
+  
+  .message-dismissable_close {
+    display: flex;
+    margin: -0.375rem;
+    padding: 0.125rem 0.375rem;
+    width: 2rem;
+    height: 2rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: default;
+
+    user-select: none;
+    justify-content: center;
+    align-items: center;
+
+    &::after {
+      content: unicode(multiplication-sign);
+    }
+  }
+}
+
+
+.slideOutUp {
+  @include fadeOutUp();
+}

@@ -1,29 +1,24 @@
 'use strict';
 const gulp = require('gulp');
+const fs = require('fs');
 
 const plugins = require('gulp-load-plugins')({ DEBUG: false, pattern: '*' });
 
-const buildPath = './dist';
-const buildCssPath = `${buildPath}/css`;
-const patternsPath = './rocketbelt';
-const templatesPath = './templates';
-const tasksPath = './gulp-tasks';
-
 const config = {
-  buildPath: buildPath,
-  buildCssPath: buildCssPath,
-  colorFamilies: require(`${templatesPath}/base/color/_color-families.json`),
-  patternsPath: patternsPath,
-  templatesPath: templatesPath,
+  tasksPath: './gulp-tasks',
+  buildPath: './dist',
+  buildCssPath: './dist/css',
+  templatesPath: './templates',
+  colorFamilies: require('./templates/base/color/_color-families.json'),
+  patternsPath: './rocketbelt',
   sizeOptions: {
     showFiles: true,
     gzip: true
   }
 };
 
-function getTask(task, taskParams) {
-  return require(`${tasksPath}/${task}`)(gulp, plugins, config, taskParams);
-}
+const getTask = (task, taskParams) =>
+  require(`${config.tasksPath}/${task}`)(gulp, plugins, config, taskParams);
 
 gulp.task('default', getTask('default'));
 
